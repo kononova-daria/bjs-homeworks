@@ -4,8 +4,7 @@
 
 function getSolutions(a, b, c) {
 	let D = Math.pow(b, 2) - 4 * a * c;
-	let roots = [];
-
+	
 	if (D < 0) {
 		return {D: D, roots: []};
 	} else if (D === 0) {
@@ -80,8 +79,5 @@ function getDecodedValue(secret) {
 }
 
 function getPersonData(secretData) {
-	let decoding = {};
-	decoding.firstName = getDecodedValue(secretData.aaa);
-	decoding.lastName = getDecodedValue(secretData.bbb);
-	return decoding;	
+	return {firstName: getDecodedValue(secretData.aaa), lastName: getDecodedValue(secretData.bbb)};	
 }

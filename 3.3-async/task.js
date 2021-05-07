@@ -13,10 +13,11 @@ class AlarmClock {
 		this.alarmCollection.push({id: id, time: time, callback: fn});
 	}
 	removeClock (id) {
-		try {
-			this.alarmCollection = this.alarmCollection.filter(item => item.id !== id);
+		let oldLength = this.alarmCollection.length;
+		this.alarmCollection = this.alarmCollection.filter(item => item.id !== id);
+		if (oldLength === this.alarmCollection.length) {
 			return true;
-		} catch(e) {
+		} else { 
 			return false;
 		}
 	}
@@ -34,14 +35,14 @@ class AlarmClock {
 		return `${record(hours)}:${record(minutes)}`;
 	}
 	start () {
-		let nowTime = this.getCurrentFormattedTime();
+		let nowTime = this.getCurrentFormattedTime;
 		function checkClock (call) {
-			if (call.time === nowTime) {
-				return call.callback;
+			if (call.time === nowTime()) {
+				return call.callback();
 			}
 		}
 		if (!this.timerId) {
-			this.timerId = setInterval(this.alarmCollection.forEach(call => checkClock(call)));
+			this.timerId = setInterval(() => this.alarmCollection.forEach(call => checkClock(call)), 5000);
 		}
 	}
 	stop () {
@@ -55,16 +56,16 @@ class AlarmClock {
 		this.alarmCollection.forEach(item => console.log(`Будильник №${item.id} заведен на ${item.time}`));
 	}
 	clearAlarms () {
-		stop();
+		this.stop();
 		this.alarmCollection.splice(0);
 	}
 }
 
 function testCase () {
 	let alarm = new AlarmClock();
-	alarm.addClock("19:11", () => console.log("Пора вставать!-1"), 1);
-	alarm.addClock("19:12", () => {console.log("Пора вставать!-2"); alarm.removeClock(2)}, 2);
-	alarm.addClock("19:13", () => {
+	alarm.addClock("17:56", () => console.log("Пора вставать!-1"), 1);
+	alarm.addClock("17:57", () => {console.log("Пора вставать!-2"); alarm.removeClock(2)}, 2);
+	alarm.addClock("17:58", () => {
 		console.log("Пора вставать!-3"); 
 		alarm.clearAlarms(); 
 		alarm.printAlarms()

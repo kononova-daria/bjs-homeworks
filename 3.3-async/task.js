@@ -16,9 +16,9 @@ class AlarmClock {
 		let oldLength = this.alarmCollection.length;
 		this.alarmCollection = this.alarmCollection.filter(item => item.id !== id);
 		if (oldLength === this.alarmCollection.length) {
-			return true;
-		} else { 
 			return false;
+		} else { 
+			return true;
 		}
 	}
 	getCurrentFormattedTime () {
